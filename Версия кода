@@ -1,25 +1,29 @@
 #include <iostream>
 using namespace std;
 
-
 class Room
 {
 private:
-    int Number; //номер комнаты
-    int Count; //количество мест
-    double Price; //цена 
-    int CountOccupied; //количество занятых мест
+    int Number;          // номер комнаты
+    int Count;           // количество мест
+    double Price;        // цена за ночь
+    int CountOccupied;   // занято мест
+
 public:
+    // конструктор по умолчанию
     Room()
     {
         Number = 0;
-        Count = 0;
+        Count = 1;
         Price = 0;
         CountOccupied = 0;
     }
+
+    // конструктор с параметрами
     Room(int m_Number, int m_Count, double m_Price, int m_CountOccupied)
     {
-        Count = m_Count;
+        Number = m_Number;
+
         if (m_Count > 0)
             Count = m_Count;
         else
@@ -27,6 +31,7 @@ public:
             cout << "Некорректное количество мест" << endl;
             Count = 1;
         }
+
         if (m_Price >= 0)
             Price = m_Price;
         else
@@ -34,6 +39,7 @@ public:
             cout << "Некорректная цена" << endl;
             Price = 0;
         }
+
         if (m_CountOccupied >= 0 && m_CountOccupied <= Count)
             CountOccupied = m_CountOccupied;
         else
@@ -41,41 +47,43 @@ public:
             cout << "Некорректное количество занятых мест" << endl;
             CountOccupied = 0;
         }
-        Number = m_Number;
     }
+
+    // деструктор
     ~Room()
     {
         cout << "Комната " << Number << " удалена" << endl;
     }
+
+    // вывод информации
     void printInfo()
     {
-      
         cout << "Номер комнаты: " << Number << endl;
         cout << "Количество мест: " << Count << endl;
         cout << "Цена за ночь: " << Price << endl;
         cout << "Занято мест: " << CountOccupied << endl;
+        cout << "----------------" << endl;
     }
 
-
-    //getters
-    int getNumber() const
-    {
+    // геттеры
+    int getNumber() const 
+    { 
         return Number;
     }
-    int getCount() const
-    {
-        return Count;
+    int getCount() const 
+    { 
+        return Count; 
     }
-    int getPrice() const
-    {
-        return Price;
+    double getPrice() const 
+    { 
+        return Price; 
     }
-    int getCountOccupied() const
-    {
-        return CountOccupied;
+    int getCountOccupied() const 
+    { 
+        return CountOccupied; 
     }
 
-    // setters
+    // сеттеры
     void setPrice(double new_Price)
     {
         if (new_Price >= 0)
@@ -83,44 +91,40 @@ public:
         else
             cout << "Цена не может быть отрицательной" << endl;
     }
+
     void setCount(int new_Count)
     {
         if (new_Count > 0)
             Count = new_Count;
         else
-            cout << "Комнат не может быть меньше 0" << endl;
+            cout << "Количество мест должно быть > 0" << endl;
     }
 
-    //метод заселения
+    // заселение
     void checkIn()
     {
         if (CountOccupied < Count)
         {
-            CountOccupied = CountOccupied + 1;
-            cout << "Гость заселен. Занято мест: " << CountOccupied << endl;
+            CountOccupied= CountOccupied +1;
+            cout << "Гость заселен. Занято: " << CountOccupied << endl;
         }
         else
-        {
-            cout << "Свободных мест нет" << endl;
-        }
+            cout << "Нет свободных мест" << endl;
     }
 
-
-    //метод выселения
+    // выселение
     void checkOut()
     {
         if (CountOccupied > 0)
         {
-            CountOccupied = CountOccupied - 1;
-            cout << "Гость выселен. Занято мест: " << CountOccupied << endl;
+            CountOccupied= CountOccupied -1;
+            cout << "Гость выселен. Занято: " << CountOccupied << endl;
         }
         else
-        {
-            cout << "Комната свободна" << endl;
-        }
+            cout << "Комната уже пустая" << endl;
     }
 
-
+    // расчет стоимости
     void Cost(int Nights)
     {
         if (Nights <= 0)
@@ -128,18 +132,30 @@ public:
             cout << "Некорректное количество ночей" << endl;
             return;
         }
-        double total = Price * Nights;
-        cout << "Стоимость проживания: " << total << endl;
+
+        cout << "Стоимость: " << Price * Nights << endl;
     }
 };
+
 int main()
 {
     setlocale(LC_ALL, "RU");
-    Room room(22, 5, 3500, 5);
-    room.printInfo();
-    room.setPrice(-4000);
-    room.checkIn();
-    room.checkOut();
-    room.Cost(3);
+
+    Room room1;
+    room1.printInfo();
+
+    Room room2(22, 3, 3500, 2);
+    room2.printInfo();
+
+    room2.checkIn();
+    room2.checkOut();
+    room2.Cost(3);
+
+    room2.setPrice(4000);
+    room2.setCount(5);
+
+
+    room2.setPrice(-1000);   // ошибка
+    room2.setCount(-2);      // ошибка
     return 0;
 }
