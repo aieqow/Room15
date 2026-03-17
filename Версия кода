@@ -49,12 +49,11 @@ public:
     }
     void printInfo()
     {
-        cout << "----------------------" << endl;
+      
         cout << "Номер комнаты: " << Number << endl;
         cout << "Количество мест: " << Count << endl;
         cout << "Цена за ночь: " << Price << endl;
         cout << "Занято мест: " << CountOccupied << endl;
-        cout << "----------------------" << endl;
     }
 
 
