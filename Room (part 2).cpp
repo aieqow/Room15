@@ -112,7 +112,7 @@ private:
     //конструктор с параметрами
 public:
     DormRoom(int m_Number, int m_Count, double m_Price, int m_CountOccupied,
-        int m_twoLevelBeds, bool m_Lockers : Room(m_Number, m_Count, m_Price, m_CountOccupied)
+        int m_twoLevelBeds, bool m_Lockers) : Room(m_Number, m_Count, m_Price, m_CountOccupied)
     {
         twoLevelBeds = m_twoLevelBeds;
         Lockers = m_Lockers;
